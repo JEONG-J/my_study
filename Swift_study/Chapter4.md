@@ -297,6 +297,7 @@ let sortedDevice: [Device] = devices.sorted()
 print(sortedDevice)
 // [Device.galaxyPhone(version: "22"), Device.galaxyTab(version: "21"),Device.notebook]
 ```
+
 ---
 야곰 지음 - 스위프트 프로그래밍3판을 공부하고 작성하였음
 ---
