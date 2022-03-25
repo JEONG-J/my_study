@@ -50,6 +50,7 @@
 + branch
 <br>
 <img src = "https://media.vlpt.us/images/chillihc/post/c77d4d85-f479-40bc-ba4b-82be8d09fc98/1e5d7590562b3b214008617211b2539ce2bddfaf.png">
+
 	```git
 	git branch => 기본 브랜치 master
 	git branch "name" => 브랜치 생성
