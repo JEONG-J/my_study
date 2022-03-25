@@ -29,6 +29,7 @@
 	```
 	> 간략하게 커밋하기
 	git commit -am "메시지"
+
 + 변경 사항 확인하기
 	```git
 	git log -p => ++ : 최신 커밋 정보, -- : 이전 커밋 정보
@@ -37,27 +38,29 @@
 	git diff => 서로 비교하며 어떤 작업했는지 확인
 	```
 + git 과거로 가기
-	```git
+	```
 	git reset "commit id" --hard => 커밋 id에 해당하는 버전으로 돌아가기
 	git revert "commit id" => 커밋 id 취소하면서 새롭게 생성
 	```
 + git의 원리<br>
-	<img src="https://img1.daumcdn.net/thumb/R1280x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/3K6t/image/_630fSrZQJj7XdswACSoCGDI1vE.png" with=100>
+	<img src="https://img1.daumcdn.net/thumb/R1280x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/3K6t/image/_630fSrZQJj7XdswACSoCGDI1vE.png">
 
 >head 파일 생성 -> master 파일 -> 최신 커밋 가리킨다.
 
 >branch 생성 -> refs/heads/branch 이름
 + branch
-<br>
+
 <img src = "https://media.vlpt.us/images/chillihc/post/c77d4d85-f479-40bc-ba4b-82be8d09fc98/1e5d7590562b3b214008617211b2539ce2bddfaf.png">
 
++ branch 생성 관리
 	```git
 	git branch => 기본 브랜치 master
-	git branch "name" => 브랜치 생성
-	git checkout "name" => 브랜치 변경
-	git log --branches --decorate --graph --oneline => branch의 로그를 한 줄 상태로 쉽게 확인
-	git log -p "name1".."name2" => 두 브랜치 차이점 확인
+    git branch "name" => 브랜치 생성
+    git checkout "name" => 브랜치 변경
+    git log --branches --decorate --graph --oneline => branch의 로그를 한 줄 상태로 쉽게 확인
+    git log -p "name1".."name2" => 두 브랜치 차이점 확인
 	```
+
 + branch 병합
 	```git
 	git merge "name" => "name"을 master로 병합
