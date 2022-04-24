@@ -173,7 +173,7 @@
         var province: String //지역 광역시/도
         var city: String //지역 시/군/구
         var street: String //도로명
-        var building: Building? //
+        var building: Building?
         var detailAddress: String? //건물 외 상세 주소
     }
 
@@ -198,7 +198,7 @@
 
     print(myInstance.address?.building?.room?.number) //Optional(505)
 ```
-> 옵셔널 체이닝을 통한 메서드 호출
+> <B>옵셔널 체이닝을 통한 메서드 호출
 ```Swift
     struct Address{
         var province: String
@@ -217,15 +217,123 @@
             var restAddress: String? = nil
 
             if let buildingInfo: Building = self.building{
-
-                restAddress = buildingInfor.name
+                restAddress = buildingInfo.name
             } else if let detail = self.detailAddress{
                 restAddress = detail
                 }
-            
+            if let rest: String = resetAddress{
+                var fullAddress: String = self.province
+                fullAddress += " "  + self.city
+                fullAddress += " "  + self.street
+                fullAddress += " "  + self.rest
+
+                return fullAddress
+            } else{
+                return nil
+            }
+        }
+
+        func printAddress(){
+            if let address: String = self.fullAddress(){
+                print(address)
+            }
         }
     }
+
+    myInstance.address?.fullAddress()?.isEmpty //false
+    myInstance.address?.printAddress() // 충북 청주시 충청대로 타워
 ```
+
+> <B>옵셔널 체이닝을 통한 서브스크립트 호출
+```Swift
+    let optionalArray: [Int]? = [1,2,3]
+    optionalArray?[1] //2
+
+    var optionalDictionary: [String: [Int]]? = [String: [Int]]()
+    optionalDictionary?["numberArray"] = optionalArray
+    optionalDictionary?["numberArray"]?[2] //3
+```
+
+## 빠른 종료
+    ● guard 키워드를 사용한다. => if 구문과 유사하게 bool 타입의 값으로 동작
+    ● guard 뒤에 따라붙는 코드의 실행 결과가 true일 때 코드가 계속 실행된다.
+    ● 항상 else 구문이 뒤에 따라와야 한다.
+    ● guard 뒤에 따라오는 Bool 값이 false라면 else의 블록 내부 코드를 실행한다.
+    ● else 구문의 블록 내부에는 꼭 자신보다 상위의 코드 블록을 종료하는 코드가 들어간다.
+    ● 코드 블록을 종료할 때 return, break, continue, throw 등의 제어문 전환 명령을 사용
+    ● guard 뒤에 따라오는 옵셔널 바인딩 표현에서 옵셔널이 값이 있는 상태라면 guard 구문에서 옵셔널 바인딩된 상수를 guard 구문이 실행된 아래 코드부터 함수 내부의 지역상수처럼 사용
+    
+
+> <B>형태
+
+```Swift
+    guard Bool 타입 값 else{
+        예외사항 실행문
+        제어문 전환 명령어
+    }
+```
+
+> guard 구문의 옵셔널 바인딩 활용
+
+```Swift
+    func greet(_ person: [String: String]){
+        guard let name: String = person["name"] else{
+            return
+        }
+        print("hellp \(name)!")
+
+        guard let location: String = person["location"] else{
+            print("I hope the weather is nice near you")
+            return
+        }
+
+        print("I jope the weather is nice near you \(location)")
+    }
+
+    var personInfo: [String: String] = [String: String]()
+    personInfo["name"] = "jenny"
+
+    greet(personInfo) //hello jenny! I hope the weather is nice near you
+
+    personInfo["location"] = "Korea"
+
+    greet(personInfo) //hello jenny! I hope the weather is nice near you Korea
+```
+
+> 메서드 내부에서 guard 구문의 옵셔널 바인딩 활용
+```Swift
+    func fullAddress() -> String? {
+        var restAddress: String? = nil
+
+        if let buldingInfo: Building = self.building{
+            restAddress = buildingInfo.name
+        } else if let detail = self.detailAddress{
+            restAddress = detail
+        }
+
+        guard let rest: String = restAddress else{
+            return nil
+        }
+
+        var fullAddress: String = self.province
+        fullAddress += " " + self.city
+        fullAddress += " " + self.street
+        fullAddress += " " + self.rest
+
+        return fullAddress
+    }
+```
+
+> guard 구문에 구체적인 조건 추가
+```Swift
+    func enterClub(name: String?, age: Int?){
+        guard let name: String = name, let age: Int = age, age > 19, name.isEmpty == false else{
+            return
+        }
+        print("welcome \(name)")
+    }
+```
+
 
 ---
 야곰 지음 - 스위프트 프로그래밍3판을 공부하고 작성하였음
